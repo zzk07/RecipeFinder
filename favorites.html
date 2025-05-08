@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Recipes - RecipeFinder</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>RecipeFinder</h1>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#search">Find Recipes</a>
+                <a href="index.html#categories">Categories</a>
+                <a href="favorites.html" class="active">Favorites</a>
+            </div>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="favorites-section">
+            <h2>My Favorite Recipes</h2>
+            <div class="filters">
+                <select id="sortFavorites">
+                    <option value="recent">Recently Added</option>
+                    <option value="name">Name (A-Z)</option>
+                    <option value="time">Cooking Time</option>
+                </select>
+            </div>
+            <div class="recipe-grid" id="favoritesGrid">
+         
+            </div>
+            <div class="empty-state" id="emptyFavorites" style="display: none;">
+                <i class="far fa-heart"></i>
+                <h3>No Favorite Recipes Yet</h3>
+                <p>Start adding recipes to your favorites to see them here!</p>
+                <a href="index.html#search" class="btn-primary">Find Recipes</a>
+            </div>
+        </section>
+    </main>
+
+    <div class="recipe-modal" id="recipeModal">
+>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About RecipeFinder</h3>
+                <p>Your go-to place for finding recipes based on ingredients you have at home.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="index.html#search">Find Recipes</a></li>
+                    <li><a href="index.html#categories">Categories</a></li>
+                    <li><a href="favorites.html">Favorites</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 RecipeFinder. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
+    <script src="favorites.js"></script>
+</body>
+</html> 

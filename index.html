@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecipeFinder - Find Recipes by Ingredients</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <h1>RecipeFinder</h1>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active">Home</a>
+                <a href="#search">Find Recipes</a>
+                <a href="#categories">Categories</a>
+                <a href="#favorites">Favorites</a>
+            </div>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h2>Find Recipes Based on Your Ingredients</h2>
+                <p>Enter the ingredients you have, and we'll suggest delicious recipes you can make!</p>
+                <div class="search-container">
+                    <div class="ingredient-input">
+                        <input type="text" id="ingredientInput" placeholder="Enter an ingredient...">
+                        <button id="addIngredient"><i class="fas fa-plus"></i></button>
+                    </div>
+                    <div class="selected-ingredients" id="selectedIngredients"></div>
+                    <button class="search-button" id="searchRecipes">
+                        <i class="fas fa-search"></i> Find Recipes
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="search" class="search-results">
+            <h2>Recipe Suggestions</h2>
+            <div class="filters">
+                <select id="dietFilter">
+                    <option value="">Any Diet</option>
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                    <option value="gluten-free">Gluten Free</option>
+                </select>
+                <select id="timeFilter">
+                    <option value="">Any Time</option>
+                    <option value="15">Under 15 mins</option>
+                    <option value="30">Under 30 mins</option>
+                    <option value="60">Under 1 hour</option>
+                </select>
+                <select id="difficultyFilter">
+                    <option value="">Any Difficulty</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+            </div>
+            <div class="recipe-grid" id="recipeGrid"></div>
+        </section>
+
+        <section id="categories" class="categories">
+            <h2>Popular Categories</h2>
+            <div class="category-grid">
+                <a class="category-card" href="breakfast.html" data-category="breakfast">
+                    <i class="fas fa-coffee"></i>
+                    <h3>Breakfast</h3>
+                </a>
+                <a class="category-card" href="lunch.html" data-category="lunch">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Lunch</h3>
+                </a>
+                <a class="category-card" href="dinner.html" data-category="dinner">
+                    <i class="fas fa-moon"></i>
+                    <h3>Dinner</h3>
+                </a>
+                <a class="category-card" href="desserts.html" data-category="desserts">
+                    <i class="fas fa-ice-cream"></i>
+                    <h3>Desserts</h3>
+                </a>
+                <a class="category-card" href="vegetarian.html" data-category="vegetarian">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Vegetarian</h3>
+                </a>
+                <a class="category-card" href="quick.html" data-category="quick">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Quick & Easy</h3>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <div class="recipe-modal" id="recipeModal">
+        <div class="modal-content">
+            <button class="close-modal"><i class="fas fa-times"></i></button>
+            <div class="recipe-details">
+                <h2 id="modalRecipeTitle"></h2>
+                <div class="recipe-meta">
+                    <span id="modalRecipeTime"></span>
+                    <span id="modalRecipeDifficulty"></span>
+                    <span id="modalRecipeServings"></span>
+                </div>
+                <div class="recipe-image">
+                    <img id="modalRecipeImage" src="" alt="">
+                </div>
+                <div class="recipe-info">
+                    <div class="ingredients">
+                        <h3>Ingredients</h3>
+                        <ul id="modalIngredients"></ul>
+                    </div>
+                    <div class="instructions">
+                        <h3>Instructions</h3>
+                        <ol id="modalInstructions"></ol>
+                    </div>
+                </div>
+                <div class="recipe-actions">
+                    <button class="favorite-btn"><i class="far fa-heart"></i> Save Recipe</button>
+                    <button class="share-btn"><i class="fas fa-share-alt"></i> Share</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About RecipeFinder</h3>
+                <p>Your go-to place for finding recipes based on ingredients you have at home.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#search">Find Recipes</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#favorites">Favorites</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-pinterest"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 RecipeFinder. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    <script src="search-suggestions.js"></script>
+</body>
+</html> 
