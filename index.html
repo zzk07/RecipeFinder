@@ -16,10 +16,16 @@
                 <h1>RecipeFinder</h1>
             </div>
             <div class="nav-links">
-                <a href="#" class="active">Home</a>
-                <a href="#search">Find Recipes</a>
-                <a href="#categories">Categories</a>
-                <a href="#favorites">Favorites</a>
+                <a href="#" class="active" data-lang="home">Home</a>
+                <a href="#search" data-lang="find-recipes">Find Recipes</a>
+                <a href="#categories" data-lang="categories">Categories</a>
+                <a href="#favorites" data-lang="favorites">Favorites</a>
+            </div>
+            <div class="language-selector">
+                <select id="languageSelect">
+                    <option value="en">EN</option>
+                    <option value="uk">УКР</option>
+                </select>
             </div>
             <div class="theme-toggle">
                 <i class="fas fa-moon"></i>
@@ -30,15 +36,15 @@
     <main>
         <section class="hero">
             <div class="hero-content">
-                <h2>Find Recipes Based on Your Ingredients</h2>
-                <p>Enter the ingredients you have, and we'll suggest delicious recipes you can make!</p>
+                <h2 data-lang="hero-title">Find Recipes Based on Your Ingredients</h2>
+                <p data-lang="hero-description">Enter the ingredients you have, and we'll suggest delicious recipes you can make!</p>
                 <div class="search-container">
                     <div class="ingredient-input">
-                        <input type="text" id="ingredientInput" placeholder="Enter an ingredient...">
+                        <input type="text" id="ingredientInput" data-lang-placeholder="enter-ingredient" placeholder="Enter an ingredient...">
                         <button id="addIngredient"><i class="fas fa-plus"></i></button>
                     </div>
                     <div class="selected-ingredients" id="selectedIngredients"></div>
-                    <button class="search-button" id="searchRecipes">
+                    <button class="search-button" id="searchRecipes" data-lang="find-recipes-button">
                         <i class="fas fa-search"></i> Find Recipes
                     </button>
                 </div>
@@ -163,6 +169,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="config.js"></script>
+    <script src="translations.js"></script>
     <script src="script.js"></script>
     <script src="search-suggestions.js"></script>
 </body>

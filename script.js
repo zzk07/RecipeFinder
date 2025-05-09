@@ -1,4 +1,3 @@
-
 const ingredientInput = document.getElementById('ingredientInput');
 const addIngredientBtn = document.getElementById('addIngredient');
 const selectedIngredients = document.getElementById('selectedIngredients');
@@ -33,20 +32,106 @@ if (savedTheme) {
 }
 
 
-addIngredientBtn.addEventListener('click', () => {
-    const ingredient = ingredientInput.value.trim();
-    if (ingredient && !ingredients.includes(ingredient)) {
-        ingredients.push(ingredient);
-        updateIngredientsList();
-        ingredientInput.value = '';
-        showNotification(`Added ${ingredient} to the list`, 'success');
+// Get current language
+function getCurrentLanguage() {
+    return document.getElementById('languageSelect').value;
+}
+
+// Add ingredient to the list
+function addIngredient(ingredient) {
+    const currentLang = getCurrentLanguage();
+    
+    // Create ingredient tag
+    const tag = document.createElement('div');
+    tag.className = 'ingredient-tag';
+    tag.setAttribute('data-ingredient', ingredient.toLowerCase());
+    
+    // Set the text in current language
+    tag.textContent = getIngredientTranslation(ingredient, currentLang);
+    
+    // Add remove button
+    const removeBtn = document.createElement('button');
+    removeBtn.innerHTML = '<i class="fas fa-times"></i>';
+    removeBtn.onclick = () => tag.remove();
+    
+    tag.appendChild(removeBtn);
+    selectedIngredients.appendChild(tag);
+}
+
+// Handle ingredient input
+document.getElementById('addIngredient').addEventListener('click', () => {
+    const input = document.getElementById('ingredientInput');
+    const ingredient = input.value.trim();
+    
+    if (ingredient) {
+        addIngredient(ingredient);
+        input.value = '';
     }
 });
 
-ingredientInput.addEventListener('keypress', (e) => {
+// Handle Enter key in input
+document.getElementById('ingredientInput').addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
-        addIngredientBtn.click();
+        const ingredient = e.target.value.trim();
+        if (ingredient) {
+            addIngredient(ingredient);
+            e.target.value = '';
+        }
     }
+});
+
+// Update ingredient suggestions based on language
+function updateIngredientSuggestions(input, suggestionsContainer) {
+    const currentLang = getCurrentLanguage();
+    const searchTerm = input.value.toLowerCase();
+    
+    // Get all ingredients in current language
+    const ingredients = Object.entries(translations[currentLang].ingredients)
+        .filter(([_, value]) => value.toLowerCase().includes(searchTerm))
+        .map(([key, value]) => ({
+            key,
+            value,
+            original: translations.en.ingredients[key]
+        }));
+
+    // Clear previous suggestions
+    suggestionsContainer.innerHTML = '';
+    
+    // Add new suggestions
+    ingredients.forEach(ingredient => {
+        const div = document.createElement('div');
+        div.className = 'suggestion-item';
+        div.textContent = ingredient.value;
+        div.onclick = () => {
+            addIngredient(ingredient.original);
+            input.value = '';
+            suggestionsContainer.style.display = 'none';
+        };
+        suggestionsContainer.appendChild(div);
+    });
+
+    // Show/hide suggestions container
+    suggestionsContainer.style.display = ingredients.length > 0 ? 'block' : 'none';
+}
+
+// Initialize ingredient suggestions
+document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('ingredientInput');
+    const suggestionsContainer = document.createElement('div');
+    suggestionsContainer.className = 'suggestions-container';
+    input.parentNode.appendChild(suggestionsContainer);
+
+    // Update suggestions on input
+    input.addEventListener('input', () => {
+        updateIngredientSuggestions(input, suggestionsContainer);
+    });
+
+    // Hide suggestions when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!input.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+            suggestionsContainer.style.display = 'none';
+        }
+    });
 });
 
 
@@ -70,6 +155,9 @@ function removeIngredient(ingredient) {
 
 
 searchRecipesBtn.addEventListener('click', async () => {
+    const ingredientTags = document.querySelectorAll('.ingredient-tag');
+    const ingredients = Array.from(ingredientTags).map(tag => tag.getAttribute('data-ingredient'));
+
     if (ingredients.length === 0) {
         showNotification('Please add at least one ingredient', 'error');
         return;
@@ -104,7 +192,6 @@ searchRecipesBtn.addEventListener('click', async () => {
         console.error('Error:', error);
         
         if (error.response) {
-
             switch (error.response.status) {
                 case 401:
                     showNotification('Invalid API key. Please check your Spoonacular API key.', 'error');
@@ -119,10 +206,8 @@ searchRecipesBtn.addEventListener('click', async () => {
                     showNotification(`Error: ${error.response.data.message || 'Unknown error occurred'}`, 'error');
             }
         } else if (error.request) {
-       
             showNotification('No response from server. Please check your internet connection.', 'error');
         } else {
-
             showNotification('Error setting up the request. Please try again.', 'error');
         }
     } finally {
